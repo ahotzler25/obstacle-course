@@ -8,6 +8,7 @@ TagManager:
   - dropBlock
   - finalDrops
   - finalTrigger
+  - Levitate
   layers:
   - Default
   - TransparentFX

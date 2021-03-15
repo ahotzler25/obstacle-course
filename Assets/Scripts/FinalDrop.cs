@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FinalDrop : MonoBehaviour
-{
-    bool isTriggered = false;
+{   
+    [SerializeField] int playerZPosition = 5;
 
-    // Only the first child is dropping if "Is Trigger" property is unchecked/false
-    // Else, no children drop
-    private void Update() {
-        if (isTriggered == true) {
-            gameObject.GetComponentInChildren<Rigidbody>().useGravity = true;
-        }
+    private void Start() {
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Rigidbody>().useGravity = false;
     }
 
-    private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.tag == "Player") 
-        {
-            Debug.Log("Hit final trigger");
-            isTriggered = true;
+    private void Update() 
+    {
+        // Final spheres don't drop until player's z position is past 5 and x position is greater than -5.25
+        if (GameObject.FindGameObjectWithTag("Player").transform.position.z > playerZPosition && GameObject.FindGameObjectWithTag("Player").transform.position.x > -5.25) {
+            GetComponent<MeshRenderer>().enabled = true;
+            GetComponent<Rigidbody>().useGravity = true;
         }
     }
 }
